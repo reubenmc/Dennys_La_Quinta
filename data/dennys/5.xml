@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><response code="1"><collection name="poi" count="4" country="US" radius="1000" radiusuom="mile" centerpoint="-149.8766702385226,61.19530035013668" state="AK" city="Anchorage" address="2894 Denali St" province="" postalcode="99503"><poi>
+  <name>Denny's</name>
+  <_distance>0.00</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>2900 DENALI</address1>
+  <address2></address2>
+  <city>ANCHORAGE</city>
+  <clientkey>249000</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>https://www.dennys.com/company/#careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>61.19528</latitude>
+  <longitude>-149.87667</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>9000</other>
+  <phone>(907) 333-6776</phone>
+  <postalcode>99503</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>AK</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>1928951915</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>2.46</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>3850 DEBARR ROAD</address1>
+  <address2></address2>
+  <city>ANCHORAGE</city>
+  <clientkey>249002</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>https://www.dennys.com/company/#careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>61.2097364864865</latitude>
+  <longitude>-149.808988918919</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>9002</other>
+  <phone>(907) 337-1311</phone>
+  <postalcode>99508</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>AK</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>1930175578</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>260.16</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>1929 AIRPORT WAY</address1>
+  <address2></address2>
+  <city>FAIRBANKS</city>
+  <clientkey>249003</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>https://www.dennys.com/company/#careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>64.83657</latitude>
+  <longitude>-147.759968732839</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>9003</other>
+  <phone>(907) 451-8950</phone>
+  <postalcode>99701</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>AK</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>1930175579</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>902.08</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>4828 HWY 16 W</address1>
+  <address2></address2>
+  <city>TERRACE</city>
+  <clientkey>246544</clientkey>
+  <country>CA</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>https://www.dennys.com/company/#careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>54.5157882661367</latitude>
+  <longitude>-128.600841866304</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>6544</other>
+  <phone>(250) 635-2295</phone>
+  <postalcode>V8G 1L6</postalcode>
+  <province>BC</province>
+  <rank></rank>
+  <state></state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>1134087511</uid>
+</poi>
+</collection></response>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?><response code="1"><collection name="poi" count="6" country="US" radius="1000" radiusuom="mile" centerpoint="-158.09151208449703,21.32885257750394" state="HI" city="Kapolei" address="4462 Kapolei Pky" province="" postalcode="96707"><poi>
+  <name>Denny's</name>
+  <_distance>0.00</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>4470 KAPOLEI PARKWAY, STE 800</address1>
+  <address2></address2>
+  <city>KAPOLEI</city>
+  <clientkey>203006</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>https://www.dennys.com/company/#careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>21.3288550650727</latitude>
+  <longitude>-158.091501071429</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>3006</other>
+  <phone>(808) 674-9327</phone>
+  <postalcode>96707</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>HI</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>1130798539</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>5.45</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>94-305 KUNIA ROAD</address1>
+  <address2></address2>
+  <city>WAIPAHU</city>
+  <clientkey>248861</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>https://www.dennys.com/company/#careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>21.386555071546</latitude>
+  <longitude>-158.033764745517</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>8861</other>
+  <phone>(808) 671-6200</phone>
+  <postalcode>96797</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>HI</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>-2117090329</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>17.09</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>205 LEWERS ST</address1>
+  <address2></address2>
+  <city>HONOLULU</city>
+  <clientkey>201563</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>https://www.dennys.com/company/#careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>21.2784877777778</latitude>
+  <longitude>-157.831534444444</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>1563</other>
+  <phone>(808) 923-8188</phone>
+  <postalcode>96815</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>HI</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981919176</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>19.52</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>45-480 KANEOHE BAY DRIVE, STE B1</address1>
+  <address2></address2>
+  <city>KANEOHE</city>
+  <clientkey>248862</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>https://www.dennys.com/company/#careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>21.4027539146005</latitude>
+  <longitude>-157.798758683196</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>8862</other>
+  <phone>(808) 247-1989</phone>
+  <postalcode>96744</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>HI</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>-2117090328</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>109.88</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>430 KELE ST</address1>
+  <address2></address2>
+  <city>KAHULUI, MAUI</city>
+  <clientkey>247694</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>https://www.dennys.com/company/#careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>20.8872344897959</latitude>
+  <longitude>-156.453814081633</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>7694</other>
+  <phone>(808) 873-5550</phone>
+  <postalcode>96732</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>HI</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981920099</uid>
+</poi>
+<poi>
+  <name>Denny's</name>
+  <_distance>178.98</_distance>
+  <_distanceuom>mile</_distanceuom>
+  <aaa></aaa>
+  <address1>75-1027 HENRY ST</address1>
+  <address2></address2>
+  <city>KAILUA-KONA</city>
+  <clientkey>247259</clientkey>
+  <country>US</country>
+  <fax></fax>
+  <icon>default</icon>
+  <jobpostings_english>https://www.dennys.com/company/#careers</jobpostings_english>
+  <jobpostings_spanish></jobpostings_spanish>
+  <latitude>19.6462919617927</latitude>
+  <longitude>-155.988893995725</longitude>
+  <loyalty_program></loyalty_program>
+  <onlineordering></onlineordering>
+  <other>7259</other>
+  <phone>(808) 327-2184</phone>
+  <postalcode>96740</postalcode>
+  <province></province>
+  <rank></rank>
+  <state>HI</state>
+  <status>0</status>
+  <travelplaza>0</travelplaza>
+  <uid>981919802</uid>
+</poi>
+</collection></response>

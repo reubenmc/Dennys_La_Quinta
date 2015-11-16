@@ -1,0 +1,207 @@
+Homework 2 - Team 10 JumpingJukes
+======================================
+
+---
+output: html_document
+---
+
+**Code Discussion**
+
+**La Quinta Data**
+
+To get the La Quinta data, we followed the example posted from class.  Using CS selectors and the `rvest` package, we scraped the information for all the La Quinta hotels in the US from their website, then stored the html for each individual hotel in a created directory, `data/lq`.  This scraping was implemented in a function. 
+
+To parse the La Quinta data, we looped through every hotel listing in `data/lq` and initially used CS selectors to select the portion of the scraped data that we were interested in.  The three main components of data that we were interested in were the address details (including latitude and longitude), `lqAddr`, the hotel details (like number of rooms and number of floors), `lqDets`, and the hotel amenities, `lqAmn`.  The hotel amenities that we considered were whether the hotel had wifi, a swimming pool, fitness center, breakfast and hair dryer in each room, or not.  
+
+After we selected which node of the html address that we wanted to consider, we used string functions from the package `stringr` to format and extract the data, into a data frame called `lqHotels`.  Each row of `lqHotels` is a different hotel location and the rows are labeled by the alias for the hotel.  The columns contain the information about each hotel location and are, in order, the street address, city/zip code, phone number, fax number, latitude, longitude, number of floors, number of rooms, number of suites, check-in time, check-out time, wifi, swimming pool, fitness center, breakfast and hair dryer.  This data frame is saved to the file `lq.Rdata` in the `/data` directory.
+
+**Denny's Data**
+
+To scrape the Denny's data, we again followed the example in class to get the information from the third party by changing the map on Denny's website.  We used 6 different coordinates in our search for Denny's locations: Durham, NC, Kansas City, Illinois, California, Hawaii, and Alaska.  For each search, we used a radius of 1000 miles to search for all of the Denny's in the US.  This step is completed in `get_dennys.R`
+
+In `parse_dennys.R` we cleaned the Denny's data.  For each of the six searches, we used CS selectors with the `xml_nodes` function to select the portion of the xml data that we wanted.  We read the address, city, state, zip code, phone number, latitude and longitude into a separate list, then bound these lists together to form the `dennysData` data frame.  We labeled each row of the data frame by the unique id (uid) of each Denny's location and we removed duplicates from the dataframe by using the `unique` function on the uid.  The `dennysData` data frame was saved to the file `dennys.Rdata` in the `/data` folder again.
+
+**Distance Analysis**
+
+We would like to determine if Denny's and La Quinta are located close together across the United States. We proceed by first cleaning out the dataset that we scrapped. We then determined the states in which there are both Dennys and La Quinta locations (aka 'Common States'). We then subset the original dataframe for Denny's and La Quinta to include coordinate information only for the 'common states'. 
+
+First, we want to get a sense of the spatial distribution of the Laquinta and Dennyss outlets within the commons states. We use package `ggplot2` to plot those Denny's and La Quinta on the map of the United States.
+```{r, message=FALSE, echo=FALSE}
+# Check for libraries and install #
+listOfPackages <- c("fields", "dplyr", "ggplot2", "maps", "reshape2")
+NewPackages <- listOfPackages[!(listOfPackages %in% installed.packages()[,"Package"])]
+if(length(NewPackages)>0) {install.packages(NewPackages,repos="http://cran.rstudio.com/")}
+
+# Load libraries #
+library(fields)
+library(dplyr)
+library(ggplot2)
+library(maps)
+library(reshape2)
+load("data/lq.Rdata")
+load("data/dennys.Rdata")
+
+# The given dataframe for laquinta has the address in text string format. #
+# Loop through each address, extract the state and store value in new column #
+state_vec_lq = 0
+for (i in 1:nrow(lqHotels)){
+  state_vec_lq[i] = (unlist(strsplit(lqHotels[i, 2], ","))[2] %>% strsplit(., " ") 
+                     %>% unlist(.))[2]
+}
+lqHotels$state = state_vec_lq 
+
+# Subset laquita dataframe to inlcude state, latitude and longitude for each laquinta location #
+lqDat = data.frame(state = lqHotels$state, 
+                   lat = lqHotels$Latitude,
+                   long = lqHotels$Longitude)
+
+# Subset dennys dataframe to inlcude state, latitude and longitude for each dennys location #
+dennyDat = data.frame( state = as.character(dennysData[, "State"]), 
+                      lat = as.numeric(levels(dennysData[, "Latitude"]))[dennysData[, "Latitude"]],
+                      long = as.numeric(levels(dennysData[, "Longitude"]))[dennysData[, "Longitude"]])
+
+# Remove records from dennys dataframe who have no state recorded. #
+# These are locations that are outside the United States #
+dennyDat = dennyDat[!(dennyDat$state == ""), ]
+
+#Order the dataframes by state and add rownames#
+lqDat = lqDat[order(lqDat$state), ]
+row.names(lqDat) = paste("laquinta",1:nrow(lqDat))
+
+dennyDat = dennyDat[order(dennyDat$state),]
+row.names(dennyDat) = paste("denny",1:nrow(dennyDat))
+
+
+# Determine all states in which both denny and laquinta are present and find intersection #
+dennyStates = levels(factor(dennyDat$state))
+lqStates = levels(factor(lqDat$state))
+commonStates = intersect(dennyStates, lqStates)
+
+# Subset the dataframe choosing only states that have both dennys and laquitas #
+dennyCommonStates = dennyDat[dennyDat$state %in% commonStates,]
+lqCommonStates = lqDat[lqDat$state %in% commonStates,]
+
+
+# plot denny's and la quinta on the map #
+# reshape the dataframe #
+laquinta <- data.frame(Type = rep(as.factor('La Quinta'),nrow(lqCommonStates)),
+                       lqCommonStates)
+dennys <- data.frame(Type = rep(as.factor('Dennys'),nrow(dennyCommonStates)),
+                     dennyCommonStates)
+coordinates<-rbind(laquinta, dennys)
+# get the map data for the US #
+states <- map_data("state")
+# get the name and coordinates for each state #
+cnames <-aggregate(cbind(long, lat) ~ country.etc, data = us.cities, 
+                   FUN = function(x) mean(range(x)))
+cnames <- cnames[cnames$country.etc %in% commonStates,]
+# plot denny's and la quinta #
+ggplot() + 
+  geom_polygon(data = states, aes(x=long, y=lat, group = group), colour="white", fill="grey5") + 
+  coord_map("mercator") + 
+  geom_point(data = coordinates,
+             aes(x = long, y = lat, color = Type, shape = Type, size = Type, group = NULL)) + 
+  scale_color_manual(values = c("Dennys" = 'Sky Blue','La Quinta' = 'Orange')) +
+  scale_size_manual(values = c('Dennys' = 1, 'La Quinta' = 2.5)) +
+  scale_shape_manual(values = c('Dennys' = 16, 'La Quinta' = 17)) +
+  geom_text(data=cnames, aes(long, lat, label = country.etc, map_id =NULL), size=3, color = "white") + 
+  ggtitle("Map of Denny's and La Quinta in Common States")
+```
+
+
+Next, using the `fields` package, we build a matrix with the distance(miles) between each of the Denny's and La Quinta in the 'common states'. Using the distance data, we were able to calculate the percent of La Quinta that have at least 1 Denny's located within a particular distance range.
+
+We get the following results from our analysis
+
+```{r, message=FALSE, echo=FALSE}
+distMat = rdist.earth(as.matrix(dennyCommonStates[-1]),as.matrix(lqCommonStates[-1]),
+                      miles=TRUE)
+
+# function input: A distance matrix, and a range interval given by low and high #
+# function output: Percent of laquintas that have atleast 1 denny between (low, high] miles #
+#if statement is simply a patch for werker error#
+if(dim(distMat)[2] >0){
+dennysbyLQ= function (distMat, low, high){
+  # Number of Denny's within (low,high] miles for each laquinta location #
+  dennysWithinRange = apply(distMat, 2, function(x) length(x[x>low & x<=high]))
+  # Number of laquintas which have aleast 1 Denny's within (low,high] miles #
+  lqWith1Denny = length(dennysWithinRange[dennysWithinRange>0])
+  # Percent of laquintas which have aleast 1 Denny's within (low,high] miles #
+  return(lqWith1Denny/dim(distMat)[2])
+}
+}
+cat("Total number of Denny locations in the United States:", dim(dennyDat)[1])
+cat("Total number of Laquinta locations in the United States:", dim(lqDat)[1])
+
+cat("Number of 'Common States' in the US with both Dennys and Laquinta locations:", 
+    length(commonStates))
+
+cat("Number of Dennys location within Common States:", dim(distMat)[1])
+cat("Number of Dennys location within Common States:", dim(distMat)[2])
+
+
+cat("Percent of  La Quinta location with at least 1 Denny's location within 1 mile or less:", 
+    round(dennysbyLQ(distMat, 0,1),2))
+cat("Percent of  La Quinta location with at least 1 Denny's location within 5 miles or less:", 
+    round(dennysbyLQ(distMat, 0,5),2))
+cat("Percent of  La Quinta location with at least 1 Denny's location within 10 miles or less:", 
+    round(dennysbyLQ(distMat, 0,10),2))
+cat("Percent of  La Quinta location with at least 1 Denny's location within 25 miles or less:", 
+    round(dennysbyLQ(distMat, 0,25),2))
+cat("Percent of  La Quinta location with at least 1 Denny's location within 50 miles or less:", 
+    round(dennysbyLQ(distMat, 0,50),2))
+```
+
+There are a total 1610 Dennys outlet and and 870 Laquinta outlets in the United States. There are 47 states in the United states where both Denny and Laquintas operate. In these common states, there are 1598 Denny's restaurants and 870 La Quinta hotels.
+
+* 39% of all La Quinta have at least 1 Denny's within 1 mile or less
+* 73% of all La Quinta have at least 1 Denny's within 5 mile or less
+* 86% of all La Quinta have at least 1 Denny's within 10 mile or less
+* 97% of all La Quinta have at least 1 Denny's within 25 mile or less
+* 99% of all La Quinta have at least 1 Denny's within 50 mile or less  
+
+We consider walking distance to be 1 mile. So our analysis tell us about 39% of all Laquinta locations have at least 1 Denny's within 1 mile or less (i.e within walking distance). Lets assess data for this 39% of laquintas, which we shall define as Laquinta-Dennys Combo Group
+
+```{r, message=FALSE, echo=FALSE}
+# Define close at 1mile, and determine the summary on the number of dennys with 1 mile of each laquinta #
+dennysPerLq1Mile = apply(distMat, 2, function(x) length(x[x>0 & x<=1]))
+# Drop all 0 values #
+dennysPerLq1Mile = subset(dennysPerLq1Mile, dennysPerLq1Mile>0)
+# Summary statistics #
+summary(dennysPerLq1Mile)
+```
+
+In the Laquinta-Dennys Combo Group, we find that on average each La Quinta has around 1.184 Denny's within 1 mile, and at least one La Quinta has 5 Denny's within 1 mile.
+
+Next we determine the spatial distribution of the Laquinta-Dennys Combo Group
+```{r, message=FALSE, echo=FALSE}
+lq1Mile <- data.frame('Number_of_Dennys' = dennysPerLq1Mile,lqCommonStates[rownames(lqCommonStates) %in% names(dennysPerLq1Mile),c("long","lat")])
+# plot denny's and la quinta #
+ggplot() + 
+  geom_polygon(data = states, aes(x=long, y=lat, group = group), colour="white", fill="grey5") + 
+  coord_map("mercator") + 
+  geom_point(data = lq1Mile,
+             aes(x = long, y = lat, size = Number_of_Dennys, group = NULL), color = "Orange") + 
+  geom_text(data=cnames, aes(long, lat, label = country.etc, map_id =NULL), size=3, color = "white") + 
+  ggtitle("Map of Laquinta-Dennys Combo Group")
+```
+
+Let's do some analysis on the distance between each La Quinta and its neighbouring Denny's in the Laquinta-Dennys Combo Group. In cases where there are multiple Denny's within a 1 mile of a la Quinta, the average distance is taken. 
+```{r, message=FALSE, echo=FALSE}
+dist1Mile = apply(distMat, 2, function(x) mean(x[x>0 & x<=1]))
+dist1Mile = dist1Mile[!is.nan(dist1Mile)]
+summary(dist1Mile)
+```
+
+We find that the on average in the Laquinta-Dennys Combo Group, the distance between each La Quinta and its neighbouring Denny's is about 0.4 miles. At least one La Quinta has a Denny's within 0.002 miles.
+
+Let's plot a histogram of these distances.
+
+```{r, message=FALSE, echo=FALSE}
+hist(dist1Mile, xlab = "average distance",
+     main = "Histogram of average distance in Laquinta-Dennys Combo group")
+```
+
+We see that the histogram is right-skewed. 
+
+To conclude our analysis. Only 39% of all La Quinta hotels in the United States have at least 1 Denny's within walking distance (1 mile). Of this 39%, the average distance between the La Quinta and Denny's is about 0.4 miles. Of the 39%, there are more La Quinta-Denny's combos within less than 0.4 miles than above 0.8 miles.
